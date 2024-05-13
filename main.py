@@ -75,3 +75,12 @@ async def read_file_as_upload_file(file: Annotated[UploadFile, File(description 
     "size": size,
     "content": content
   }
+
+# Multiple File Uploads
+@app.post("/bulk_files")
+async def read_files_as_bytes(files: Annotated[list[bytes], File()]):
+  return { "sizes": [len(file) for file in files]}
+
+@app.post("/bulk_upload_files")
+async def read_files_as_upload_file(files: Annotated[list[UploadFile], File()]):
+  return { "sizes": [file.size for file in files]}
